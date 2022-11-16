@@ -39,7 +39,12 @@
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
 
-    let cols = Math.floor(window.innerWidth / 20) + 1;
+    // create columns
+    const column_distance = 20;
+    function get_columns() {
+      return Math.floor(window.innerWidth / column_distance) + 1;
+    }
+    let cols = get_columns();
     let ypos = Array(cols).fill(0);
     
     // set context to black
@@ -54,7 +59,7 @@
       // set matrix columns to screen width
       if (canvas.width !== w) {
         canvas.width = w;
-        cols = Math.floor(window.innerWidth / 20) + 1;
+        cols = get_columns();
         ypos = Array(cols).fill(0);
       }
       if (canvas.height !== h) {
@@ -71,10 +76,12 @@
       ypos.forEach((y, ind) => {
         // sample symbols pseudo-randomly
         const text = String.fromCharCode(Math.random() * 128);
-        const x = ind * 20;
+        // render text
+        const x = ind * column_distance;
         ctx.fillText(text, x, y);
+        // update column position
         if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
-        else ypos[ind] = y + 20;
+        else ypos[ind] = y + column_distance;
       });
     }
     
