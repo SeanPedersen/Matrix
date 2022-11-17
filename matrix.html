@@ -57,7 +57,7 @@
     let cols = get_columns();
     let ypos = Array(cols).fill(0);
     
-    // set context to black
+    // set context (background) to black
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
@@ -66,15 +66,14 @@
       const w = window.innerWidth;
       const h = window.innerHeight;
       
-      // set matrix columns to screen width
+      // adapt matrix size to screen
       if (canvas.width !== w) {
         canvas.width = w;
         cols = get_columns();
         ypos = Array(cols).fill(0);
       }
-      if (canvas.height !== h) {
-        canvas.height = h;
-      }
+      if (canvas.height !== h) { canvas.height = h; }
+
       // set matrix style
       ctx.fillStyle = '#0001';
       ctx.fillRect(0, 0, w, h);
@@ -82,7 +81,6 @@
       ctx.font = '15pt monospace'; // set matrix font
       
       // init matrix column symbols
-      
       ypos.forEach((y, ind) => {
         // sample symbols pseudo-randomly
         const symbol_code = 36 + Math.random() * 2048;
