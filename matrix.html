@@ -46,8 +46,11 @@
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
 
-    // create columns
-    const column_distance = 20;
+    // define matrix columns (water lines)
+    const matrix_frequence = 13.69; // update frequency in hertz
+    const column_distance = 23;
+    const column_avg_length = 1369;
+    const column_avg_y_offset = 66;
     function get_columns() {
       return Math.floor(window.innerWidth / column_distance) + 1;
     }
@@ -86,13 +89,17 @@
         // render text
         const x = ind * column_distance;
         ctx.fillText(text, x, y);
+  
+        // compute line positions
+        const line_offset = Math.random() * column_avg_y_offset;
+        const line_length = Math.random() * column_avg_length;
         // update column position
-        if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+        if (y-line_offset/2.33 > line_offset + line_length) ypos[ind] = 0;
         else ypos[ind] = y + column_distance;
       });
     }
-    
-    setInterval(matrix, 56); // set matrix update flow time interval
+    const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequence);
+    setInterval(matrix, interval_ms); // set matrix update flow time interval
     </script>
     
 </html>
