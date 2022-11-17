@@ -91,7 +91,7 @@
       y_posis.forEach((y, index) => {
         if (Math.random() > matrix_terminator) {
         // sample symbols pseudo-randomly
-        const symbol_code = 36 + Math.random() * 2048;
+        const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
         const text = String.fromCharCode(symbol_code);
         // render text
         const x = index * column_distance;
