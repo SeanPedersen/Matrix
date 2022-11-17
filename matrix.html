@@ -53,15 +53,15 @@
     const ctx = canvas.getContext('2d');
 
     // define matrix (water lines)
-    const matrix_frequence = 13.69; // update frequency in hertz
+    const matrix_frequency = 13.69; // update frequency in hertz
     const column_distance = 23;
     const column_avg_length = 1369;
     const column_avg_y_offset = 66;
     function get_columns() {
       return Math.floor(window.innerWidth / column_distance) + 1;
     }
-    let cols = get_columns();
-    let ypos = Array(cols).fill(0);
+    let n_lines = get_columns();
+    let y_posis = Array(n_lines).fill(0);
     
     // set context (background) to black
     ctx.fillStyle = '#000';
@@ -75,8 +75,8 @@
       // adapt matrix size to screen
       if (canvas.width !== w) {
         canvas.width = w;
-        cols = get_columns();
-        ypos = Array(cols).fill(0);
+        n_lines = get_columns();
+        y_posis = Array(n_lines).fill(0);
       }
       if (canvas.height !== h) { canvas.height = h; }
 
@@ -87,22 +87,22 @@
       ctx.font = '15pt monospace'; // set matrix font
       
       // init matrix column symbols
-      ypos.forEach((y, ind) => {
+      y_posis.forEach((y, index) => {
         // sample symbols pseudo-randomly
         const symbol_code = 36 + Math.random() * 2048;
         const text = String.fromCharCode(symbol_code);
         // render text
-        const x = ind * column_distance;
+        const x = index * column_distance;
         ctx.fillText(text, x, y);
         // compute line positions
         const line_offset = Math.random() * column_avg_y_offset;
         const line_length = Math.random() * column_avg_length;
         // update column position
-        if (y-line_offset/2.33 > line_offset + line_length) ypos[ind] = 0;
-        else ypos[ind] = y + column_distance;
+        if (y-line_offset/2.33 > line_offset + line_length) y_posis[index] = 0;
+        else y_posis[index] = y + column_distance;
       });
     }
-    const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequence);
+    const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequency);
     setInterval(matrix, interval_ms); // set matrix update flow time interval
     </script>
 </html>
