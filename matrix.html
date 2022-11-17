@@ -90,19 +90,19 @@
       // init matrix column symbols
       y_posis.forEach((y, index) => {
         if (Math.random() > matrix_terminator) {
-        // sample symbols pseudo-randomly
-        const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
-        const text = String.fromCharCode(symbol_code);
-        // render text
-        const x = index * column_distance;
-        ctx.fillText(text, x, y);
-        // compute line positions
-        const line_offset = Math.random() * column_avg_y_offset;
-        const line_length = Math.random() * column_avg_length;
-        // update column position
-        if (y-line_offset/2.33 > line_offset + line_length) y_posis[index] = 0;
-        else y_posis[index] = y + column_distance;
-      }
+          // sample symbols pseudo-randomly
+          const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
+          const text = String.fromCharCode(symbol_code);
+          // render text
+          const x = index * column_distance;
+          ctx.fillText(text, x, y);
+          // compute line positions
+          const line_offset = Math.random() * column_avg_y_offset;
+          const line_length = Math.random() * column_avg_length;
+          // update column position
+          if (y-line_offset/2.33 > line_offset + line_length) y_posis[index] = 0;
+          else y_posis[index] = y + column_distance;
+        }
       });
     }
     const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequency);
