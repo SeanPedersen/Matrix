@@ -82,9 +82,11 @@
       ctx.font = '15pt monospace'; // set matrix font
       
       // init matrix column symbols
+      
       ypos.forEach((y, ind) => {
         // sample symbols pseudo-randomly
-        const text = String.fromCharCode(Math.random() * 128);
+        const symbol_code = 36 + Math.random() * 2048;
+        const text = String.fromCharCode(symbol_code);
         // render text
         const x = ind * column_distance;
         ctx.fillText(text, x, y);
