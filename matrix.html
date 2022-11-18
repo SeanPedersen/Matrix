@@ -56,8 +56,7 @@
     const matrix_frequency = 16.69; // update frequency in hertz
     const matrix_terminator = 0.69;
     const column_distance = 23;
-    const column_avg_length = 1369;
-    const column_avg_y_offset = 69;
+    
     function get_columns() {
       return Math.floor(window.innerWidth / column_distance) + 1;
     }
@@ -80,6 +79,8 @@
         y_posis = Array(n_lines).fill(0);
       }
       if (canvas.height !== h) { canvas.height = h; }
+      const column_avg_length = h * 0.96;
+      const column_avg_y_offset = h * 0.36;
 
       // set matrix style
       ctx.fillStyle = '#0001';
@@ -97,10 +98,9 @@
           const x = index * column_distance;
           ctx.fillText(text, x, y);
           // compute line positions
-          const line_offset = Math.random() * column_avg_y_offset;
           const line_length = Math.random() * column_avg_length;
           // update column position
-          if (y-line_offset/2.33 > line_offset + line_length) y_posis[index] = 0;
+          if (y > column_avg_y_offset + line_length) y_posis[index] = 0;
           else y_posis[index] = y + column_distance;
         }
       });
