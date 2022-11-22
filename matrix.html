@@ -96,7 +96,7 @@
           const x = index * column_distance;
           ctx.fillText(text, x, y);
           // compute line positions
-          const line_length = Math.random() * column_avg_length;
+          const line_length = h * 0.042 + Math.random() * column_avg_length;
           // update column position
           if (y > column_avg_y_offset + line_length) y_posis[index] = 0;
           else y_posis[index] = y + column_distance;
