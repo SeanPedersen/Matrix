@@ -53,9 +53,9 @@
     // define matrix (water lines)
     const matrix_frequency = 16.69; // update frequency in hertz
     const matrix_terminator = 0.23; // symbol drawing probability
-    const column_width = 23;
+    const symbol_size = 23;
     function get_columns() {
-      return Math.floor(window.innerWidth / column_width) + 1;
+      return Math.floor(window.innerWidth / symbol_size) + 1;
     }
     let n_columns = get_columns();
     let y_posis = Array(n_columns).fill(0);
@@ -85,11 +85,11 @@
           const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
           const text = String.fromCharCode(symbol_code);
           // render text
-          const x = index * column_width;
+          const x = index * symbol_size;
           ctx.fillText(text, x, y);
           // update column position
           if (y > height) y_posis[index] = 0;
-          else y_posis[index] = y + column_width;
+          else y_posis[index] = y + symbol_size;
         }
       });
     }
