@@ -17,7 +17,7 @@
         position: relative;
         z-index: 1;
       }
-      #canv {
+      #matrixcanvas {
         position: fixed;
         top: 0;
         left: 0;
@@ -25,7 +25,7 @@
       </style>
   </head>
   <body>
-    <canvas id='canv'></canvas>
+    <canvas id='matrixcanvas'></canvas>
     <div class='container'>
         <p>
           SA<a href="http://localhost" target="_blank">T</a>OR<br>
@@ -45,65 +45,55 @@
     in our own HANDS
     */
     // create canvas + context
-    const canvas = document.getElementById('canv');
+    const canvas = document.getElementById('matrixcanvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
 
     // define matrix (water lines)
     const matrix_frequency = 16.69; // update frequency in hertz
-    const matrix_terminator = 0.69;
-    const column_distance = 23;
-    
+    const matrix_terminator = 0.23; // symbol drawing probability
+    const column_width = 23;
     function get_columns() {
-      return Math.floor(window.innerWidth / column_distance) + 1;
+      return Math.floor(window.innerWidth / column_width) + 1;
     }
     let n_lines = get_columns();
     let y_posis = Array(n_lines).fill(0);
-    
-    // set context (background) to black
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // define matrix code flow
+    matrix(); // Launch first matrix step
+
     function matrix () {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      
+      const width = window.innerWidth;
+      const height = window.innerHeight;
       // adapt matrix size to screen
-      if (canvas.width !== w) {
-        canvas.width = w;
+      if (canvas.width !== width) {
+        canvas.width = width;
         n_lines = get_columns();
         y_posis = Array(n_lines).fill(0);
       }
-      if (canvas.height !== h) { canvas.height = h; }
-      const column_avg_length = h * 0.96;
-      const column_avg_y_offset = h * 0.36;
-
+      if (canvas.height !== height) { canvas.height = height; }
       // set matrix style
       ctx.fillStyle = '#0001';
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#0f0';
       ctx.font = '15pt monospace'; // set matrix font
-      
-      // init matrix column symbols
+      // update matrix symbols
       y_posis.forEach((y, index) => {
-        if (Math.random() > matrix_terminator) {
+        if (matrix_terminator > Math.random()) {
           // sample symbols pseudo-randomly
           const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
           const text = String.fromCharCode(symbol_code);
           // render text
-          const x = index * column_distance;
+          const x = index * column_width;
           ctx.fillText(text, x, y);
-          // compute line positions
-          const line_length = h * 0.042 + Math.random() * column_avg_length;
           // update column position
-          if (y > column_avg_y_offset + line_length) y_posis[index] = 0;
-          else y_posis[index] = y + column_distance;
+          if (y > height) y_posis[index] = 0;
+          else y_posis[index] = y + column_width;
         }
       });
     }
     const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequency);
-    setInterval(matrix, interval_ms); // set matrix update flow time interval
+    setInterval(matrix, interval_ms); // Launch timed matrix execution loop
     </script>
 </html>
