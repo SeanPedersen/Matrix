@@ -1,99 +1,107 @@
 <html>
-  <head>
-    <style>
-      body {
-        margin: 0;
-        background-color: #000;
-        text-align: center;
-      }
-      a {
-        color: blue;
-        text-decoration: none; /* no underline */
-      }
-      .container {
-        background-color: rgba(255, 255, 255, 0.85);
-        margin: 36px 46%;
-        padding: 0.88rem;
-        position: relative;
-        z-index: 1;
-      }
-      #matrixcanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-      }
-      </style>
-  </head>
-  <body>
-    <canvas id='matrixcanvas'></canvas>
-    <div class='container'>
-        <p>
-          SA<a href="http://localhost" target="_blank">T</a>OR<br>
-          AR<a href="http://localhost" target="_blank">E</a>PO<br>
-          <a href="http://localhost" target="_blank">TENET</a>
-          <br>OP<a href="http://localhost" target="_blank">E</a>RA
-          <br>RO<a href="http://localhost" target="_blank">T</a>AS
-        </p>
-    </div>
-  </body>
-  <script>
-    /* 
-    The SEAMEN
-    are Y'ALL
-    we HOLD
-    our WORLD
-    in our own HANDS
-    */
-    // create canvas + context
-    const canvas = document.getElementById('matrixcanvas');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const ctx = canvas.getContext('2d');
 
-    // define matrix (water lines)
-    const matrix_frequency = 16.69; // update frequency in hertz
-    const matrix_terminator = 0.23; // symbol drawing probability
-    const symbol_size = 23;
-    function get_columns() {
-      return Math.floor(window.innerWidth / symbol_size) + 1;
+<head>
+  <title>MATRIX</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      text-align: center;
     }
-    let n_columns = get_columns();
-    let y_posis = Array(n_columns).fill(0);
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    matrix(); // Launch first matrix step
 
-    function matrix () {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      // adapt matrix size to screen
-      if (canvas.width !== width) {
-        canvas.width = width;
-        n_columns = get_columns();
-        y_posis = Array(n_columns).fill(0);
-      }
-      if (canvas.height !== height) { canvas.height = height; }
-      // set matrix style
-      ctx.fillStyle = '#0001';
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = '#0f0';
-      ctx.font = '15pt monospace'; // set matrix font
-      // update matrix symbols
-      y_posis.forEach((y, index) => {
-        if (matrix_terminator > Math.random()) {
-          // sample symbols pseudo-randomly
-          const symbol_code =  Math.random() * 365.69962106 + Math.random() * 2023;
-          const text = String.fromCharCode(symbol_code);
-          // render text
-          const x = index * symbol_size;
-          ctx.fillText(text, x, y);
-          // update column position
-          if (y > height) y_posis[index] = 0;
-          else y_posis[index] = y + symbol_size;
-        }
-      });
+    a {
+      color: blue;
+      text-decoration: none;
+      /* no underline */
     }
-    const interval_ms = Math.random() * 3.6 + 1000*(1/matrix_frequency);
-    setInterval(matrix, interval_ms); // Launch timed matrix execution loop
-    </script>
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.85);
+      margin: 36px 46%;
+      padding: 0.88rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    #matrixcanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id='matrixcanvas'></canvas>
+  <div class='container'>
+    <p>
+      SA<a href="http://localhost" target="_blank">T</a>OR<br>
+      AR<a href="http://localhost" target="_blank">E</a>PO<br>
+      <a href="http://localhost" target="_blank">TENET</a>
+      <br>OP<a href="http://localhost" target="_blank">E</a>RA
+      <br>RO<a href="http://localhost" target="_blank">T</a>AS
+    </p>
+  </div>
+</body>
+<script>
+  /* 
+  The SEAMEN
+  are Y'ALL
+  we HOLD
+  our WORLD
+  in our own HANDS
+  */
+  // create canvas + context
+  const canvas = document.getElementById('matrixcanvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+
+  // define matrix (water lines)
+  const matrix_frequency = 16.69; // update frequency in hertz
+  const matrix_terminator = 0.23; // symbol drawing probability
+  const symbol_size = 23;
+  function get_columns() {
+    return Math.floor(window.innerWidth / symbol_size) + 1;
+  }
+  let n_columns = get_columns();
+  let y_posis = Array(n_columns).fill(0);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  matrix(); // Launch first matrix step
+
+  function matrix() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    // adapt matrix size to screen
+    if (canvas.width !== width) {
+      canvas.width = width;
+      n_columns = get_columns();
+      y_posis = Array(n_columns).fill(0);
+    }
+    if (canvas.height !== height) { canvas.height = height; }
+    // set matrix style
+    ctx.fillStyle = '#0001';
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = '#0f0';
+    ctx.font = '15pt monospace'; // set matrix font
+    // update matrix symbols
+    y_posis.forEach((y, index) => {
+      if (matrix_terminator > Math.random()) {
+        // sample symbols pseudo-randomly
+        const symbol_code = Math.random() * 365.69962106 + Math.random() * 2023;
+        const text = String.fromCharCode(symbol_code);
+        // render text
+        const x = index * symbol_size;
+        ctx.fillText(text, x, y);
+        // update column position
+        if (y > height) y_posis[index] = 0;
+        else y_posis[index] = y + symbol_size;
+      }
+    });
+  }
+  const interval_ms = Math.random() * 3.6 + 1000 * (1 / matrix_frequency);
+  setInterval(matrix, interval_ms); // Launch timed matrix execution loop
+</script>
+
 </html>
